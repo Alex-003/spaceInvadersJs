@@ -1,155 +1,23 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Space Invaders</title>
-    <style>
-      canvas {
-        border: 1px solid #000;
-      }
-    </style>
+    <link rel="stylesheet" href="/styles.css" />
+    <link rel="shortcut icon" href="#" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;700&family=Press+Start+2P&display=swap"
+      rel="stylesheet"
+    />
   </head>
   <body>
-    <canvas id="gameCanvas" width="480" height="320"></canvas>
-    <script>
-      const game = {
-        canvas: document.getElementById("gameCanvas"),
-        ctx: document.getElementById("gameCanvas").getContext("2d"),
-        backgroundColor: "#000",
-        update: function () {
-          this.ctx.fillStyle = this.backgroundColor;
-          this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
-          // Draw and move game objects here
-        },
-        keydown: function (e) {
-          // Handle keyboard input here
-        },
-        init: function () {
-          // Initialize game objects here
-          // Call update() method repeatedly using setInterval
-        },
-        stop: function () {
-          // Stop game loop here
-        },
-        restart: function () {
-          // Restart game here
-          this.init();
-        },
-      };
-
-      class GameObject {
-        constructor(x, y, width, height, color) {
-          this.x = x;
-          this.y = y;
-          this.width = width;
-          this.height = height;
-          this.color = color;
-        }
-
-        draw(ctx) {
-          ctx.fillStyle = this.color;
-          ctx.fillRect(this.x, this.y, this.width, this.height);
-        }
-
-        update(dx, dy) {
-          this.x += dx;
-          this.y += dy;
-        }
-
-        collidesWith(obj) {
-          return (
-            this.x < obj.x + obj.width &&
-            this.x + this.width > obj.x &&
-            this.y < obj.y + obj.height &&
-            this.y + this.height > obj.y
-          );
-        }
-      }
-
-      class SpaceShip extends GameObject {
-        constructor(x, y, width, height, color, canvasHeight) {
-          super(x, y, width, height, color);
-          this.canvasHeight = canvasHeight;
-          this.bulletWidth = 2;
-          this.bulletHeight = 10;
-          this.bulletColor = "#fff";
-          this.bullets = [];
-        }
-
-        draw(ctx) {
-          ctx.fillStyle = this.color;
-          ctx.fillRect(this.x, this.y, this.width, this.height);
-
-          for (let i = 0; i < this.bullets.length; i++) {
-            this.bullets[i].draw(ctx);
-            this.bullets[i].update(0, -10);
-            if (this.bullets[i].y < 0) {
-              this.bullets.splice(i, 1);
-            }
-          }
-        }
-
-        shoot(dy) {
-          this.bullets.push(
-            new GameObject(
-              this.x + this.width / 2 - this.bulletWidth / 2,
-              this.y - this.bulletHeight,
-              this.bulletWidth,
-              this.bulletHeight,
-              this.bulletColor
-            )
-          );
-        }
-      }
-
-      class Player extends SpaceShip {
-        constructor(x, y, width, height, color, canvasWidth, canvasHeight) {
-          super(x, y, width, height, color, canvasHeight);
-          this.canvasWidth = canvasWidth;
-        }
-
-        update(dy, dx) {
-          super.update(dx, dy);
-          if (this.x < 0) {
-            this.x = 0;
-          }
-          if (this.x > this.canvasWidth - this.width) {
-            this.x = this.canvasWidth - this.width;
-          }
-        }
-      }
-
-      class Asteroid {
-        constructor(x, y, parts) {
-          this.parts = parts;
-        }
-
-        draw(ctx) {
-          for (let i = 0; i < this.parts.length; i++) {
-            this.parts[i].draw(ctx);
-          }
-        }
-
-        collidesWith(obj) {
-          for (let i = 0; i < this.parts.length; i++) {
-            if (this.parts[i].collidesWith(obj)) {
-              return true;
-            }
-          }
-          return false;
-        }
-
-        removeOnCollide(obj) {
-          for (let i = 0; i < this.parts.length; i++) {
-            if (this.parts[i].collidesWith(obj)) {
-              this.parts.splice(i, 1);
-              break;
-            }
-          }
-        }
-      }
-
-      // Initialize game here
-      game.init();
-    </script>
+    <h1 class="title">Space Invaders</h1>
+    <button id="start-btn" onclick="startGame()">Start Game</button>
+    <canvas id="game"></canvas>
+    <script type="module" src="index.js"></script>
   </body>
 </html>
