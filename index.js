@@ -65,4 +65,14 @@ function checkGameOver() {
   }
 }
 
-setInterval(game, 1000 / 60);
+const startButton = document.getElementById("start-btn");
+startButton.addEventListener("click", startGame);
+
+let timerId = null;
+
+function startGame() {
+  if (timerId !== null) {
+    clearInterval(timerId);
+  }
+  timerId = setInterval(game, 1000 / 60);
+}
