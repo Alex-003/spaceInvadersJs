@@ -9,11 +9,7 @@ body {
   padding: 0px;
   margin: 0px;
   height: 100vh;
-  background: linear-gradient(
-    0deg,
-    rgb(186, 192, 197) 0%,
-    rgba(0, 0, 0, 0) 100%
-  );
+  background: white;
 }
 
 .title {
@@ -43,7 +39,28 @@ body {
 }
 
 #start-btn:hover {
-  background-color: #e0e8e0;
+  background-color: #ffffff;
   cursor: pointer;
+  color: black;
+}
+
+.restart-button {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-30%, -210%);
+  font-family: "Press Start 2P", cursive;
+  font-size: 24px;
+  color: white;
+  background-color: black;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.restart-button:hover {
+  transition: 0.7s ease-in-out;
+  background: white;
   color: black;
 }

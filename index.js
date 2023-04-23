@@ -35,6 +35,8 @@ function game() {
   }
 }
 
+let restartButtonCreated = false;
+
 function displayGameOver() {
   if (isGameOver) {
     let text = didWin ? "You Win" : "Game Over";
@@ -43,7 +45,29 @@ function displayGameOver() {
     ctx.fillStyle = "white";
     ctx.font = "70px Arial";
     ctx.fillText(text, canvas.width / textOffset, canvas.height / 2);
+
+    if (!restartButtonCreated) {
+      const restartButton = document.createElement("button");
+      restartButton.innerText = "Restart?";
+      restartButton.style.fontFamily = "Press Start 2P";
+      restartButton.addEventListener("click", restartGame);
+      restartButton.classList.add("restart-button");
+      const centerX = canvas.width / 2;
+      const centerY = canvas.height / 2;
+
+      restartButton.style.position = "absolute";
+      restartButton.style.left = centerX - 50 + "px";
+      restartButton.style.top = centerY + 50 + "px";
+
+      canvas.parentNode.appendChild(restartButton);
+
+      restartButtonCreated = true;
+    }
   }
+}
+
+function restartGame() {
+  window.location.reload();
 }
 
 function checkGameOver() {
